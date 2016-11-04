@@ -1,0 +1,75 @@
+---
+title: "metadata_SVG"
+author: "Emilia"
+date: "15 de setembro de 2016"
+output: pdf_document
+---
+
+Notas a respeito dos dados experimentais coletados em Santa Virgínia.
+
+###Sítio
++ ID
++ lat/lon
++ altitude
++ descrição (topografia, vegetação, uso da terra)
++ citação
++ Outros trabalhos publicados
+
+### 2-Sistemas de aquisição:
+####2.1-G3V - Vertedor
++ sensor: Solinst Barologger e Levelogger
++ aquisição: 3 minutos 
+
+Processamento:
+*G3V_SVG_Solinst_GoldV2.R*
+são dois aquivos que o script se encarrega de calcular a cota para processar
+
+####2.2-GAR
+
+
+### 2.3-Ref
+
+Canal|Variavel|Descrição|Unidade
+-----|--------|---------|-------
+i| Timestamp |
+1| short_up	| W/m^2
+2| short_dn	| W/m^2
+3| long_up	| W/m^2
+4| long_dn	| W/m^2
+5| cnr4_T_K	| K
+6| batt_volt_Min | volts
+7| logger_temp | degC
+8| short_up_Avg	| W/m^2
+9| short_dn_Avg	| W/m^2
+10| long_up_Avg	| W/m^2
+11| long_dn_Avg	| W/m^2
+12|	cnr4_T_C_Avg | deg_C
+13|	cnr4_T_K_Avg | K
+14|	long_up_corr_Avg | W/m^2
+15|	long_dn_corr_Avg | W/m^2
+16|	Rs_net_Avg | W/m^2
+17|	Rl_net_Avg | W/m^2
+18|	albedo_Avg | W/m^2
+19|	Rn_Avg | W/m^2
+20|	PARi_Avg | 	
+21|	PARr_Avg | 	
+22|	AirTC_Avg | 	
+23|	RH_Avg | 
+
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+summary(cars)
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

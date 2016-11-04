@@ -1,0 +1,182 @@
+---
+title: "PEG_metadata"
+author: "Emilia"
+date: "8 de agosto de 2016"
+output: pdf_document
+---
+
+Sitio:**PEG - Pé de Gigante**
+Localização: 
+Coordenadas:
+Altitude:
+Descrição:
+
+### PT
+de XX-XX-XXXX a 208/2016
+
+Canal|Variavel|Descrição|Unidade
+-----|--------|---------|-------
+i|"TIMESTAMP"
+1|"REBS_Avg"
+2|"Net_Avg"
+3|"Par_i_Avg"
+4|"Pira_i_Avg"
+5|"Par_r_Avg"
+6|"Pira_r_Avg"
+7|"Temp_Avg"
+8|"UR_Avg"
+9|"Press_Avg"
+10|"prec_Tot"
+11|"prec2_Tot"
+12|"Ptemp_Avg"
+13|"Pbateria_Avg"
+14|"Net_Std"
+15|"Par_i_Std"
+16|"Pira_i_Std"
+17|"Par_r_Std"
+18|"Pira_r_Std"
+19|"mean_W_Veloc"
+20|"mean_W_Vdir"
+21|"std_W_SD"
+22|"n_TOT"
+23|"diag_1_TOT"
+24|"diag_2_TOT"
+25|"diag_4_TOT"
+26|"diag_8_TOT"
+27|"diag_9_TOT"
+28|"diag_10_TOT"
+29|"no_data_TOT"
+
+
+"TS","W m^-2","W m^-2","micromol m^-2","W m^-2","micromol m^-2","W m^-2","oC","%","mb","mm","mm","oC","Volt","W m^-2","micromol m^-2","W m^-2","micromol m^-2","W m^-2","","Deg","Deg","samples","samples","samples","samples","samples","samples","samples","samples"
+"","Avg","Avg","Avg","Avg","Avg","Avg","Avg","Avg","Avg","Tot","Tot","Avg","Avg","Std","Std","Std","Std","Std","WVc","WVc","WVc","Tot","Tot","Tot","Tot","Tot","Tot","Tot","Tot"
+
+
+
+### PV
+até 082/2016 às 16:10
+CR10X
+
+-sensor parou de funcionar em 22/03/2016; substituído em 27/06/2016 
+Neste período dados ruins não extraí canal 4, druck para as coletas
+145 e 180.
+
+
+a partir da coleta 2082016 usar esta configuração, lembrando que a cota nobanco está em mm, portanto multiplicador é ***10.0***
+de 26/07/2016 (180/2016)
+CR1000
+
+*Tabela XX: Configuração dos dados do vertedor PV a partir de 208/2016.*
+Canal|Variavel|Descrição|Unidade
+-----|--------|---------|-------
+*i* | TS      | Timestamp | *YYYY-mm-dd HH:MM:SS*
+1 | RECORD  | Número de registros (optativo) |
+2 | batt_volt_Min | Tensão mínima da bateria | V (volts)
+3 | batt_volt_Avg | Tensão média da bateria | V (volts)
+4 | PTemp_Avg | Temperatura do Painel | °C
+5 | Prec_Avg | Precipitação Média (inútil !!) | mm
+6 | T_AGUA_Avg | Temperatua da água | °C
+7 | NIVEL_Avg | Cota | cm
+8 | UNIK_Avg | Cota | mV
+9 | NIVEL_Std | Desvio Padrão da Cota | cm
+10 | UNIK_Std | Desvio Padrão da Cota | mV
+11 | NIVEL_Max | Cota máxima | cm
+12 | UNIK_Max | Cota Máxima | mV
+13 | T_AGUA_Max | Temperatura máxima da água | °C
+14 | NIVEL_Min | Cota mínima | cm
+15 | UNIK_Min | Cota mínima | mV
+16 | T_AGUA_Min | Temperatura mínima da água | °C
+17 | Prec_Tot | Precipitação acumulada | mm
+
+
+
+```{r}
+
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+### PM
+
+mesmo programa até agora
+
+
+Canal|Variavel|Descrição|Unidade
+-----|--------|---------|-------
+*i*  |TS      |Timestamp| *YYYY-mm-dd HH:MM:SS*
+1|RECORD  |Número de registros (optativo)|
+2|prec_Tot |Precipitação Total| mm
+3|Ptemp_Avg|Temperatura do Painel|°C
+4|Pbateria_Avg|Tensão da Bateria| V
+5|Temp_Avg|Temperatura do Ar|°C
+6|UR_Avg|Umidade Relativa| %
+
+
+
+### PF
+Canal|Variavel|Descrição|Unidade
+-----|--------|---------|-------
+*i*  |TS      |Timestamp| *YYYY-mm-dd HH:MM:SS*
+1	|	Fc_irga	|	mg/(m^2 s)	|
+2	|	LE_irga	|	W/m^2	|
+3	|	Hs	|	W/m^2	|
+4	|	tau	|	kg/(m s^2)	|
+5	|	u_star	|	m/s	|
+6	|	cov_Uz_Uz	|	(m/s)^2	|
+7	|	cov_Uz_Ux	|	(m/s)^2	|
+8	|	cov_Uz_Uy	|	(m/s)^2	|
+9	|	cov_Uz_co2	|	mg/(m^2 s)	|
+10	|	cov_Uz_h2o	|	g/(m^2 s)	|
+11	|	cov_Uz_Ts	|	m C/s	|
+12	|	cov_Ux_Ux	|	(m/s)^2	|
+13	|	cov_Ux_Uy	|	(m/s)^2	|
+14	|	cov_Ux_co2	|	mg/(m^2 s)	|
+15	|	cov_Ux_h2o	|	g/(m^2 s)	|
+16	|	cov_Ux_Ts	|	m C/s	|
+17	|	cov_Uy_Uy	|	(m/s)^2	|
+18	|	cov_Uy_co2	|	mg/(m^2 s)	|
+19	|	cov_Uy_h2o	|	g/(m^2 s)	|
+20	|	cov_Uy_Ts	|	m C/s	|
+21	|	cov_co2_co2	|	(mg/m^3)^2	|
+22	|	cov_h2o_h2o	|	(g/m^3)^2	|
+23	|	cov_Ts_Ts	|	C^2	|
+24	|	Uz_Avg	|	m/s	|
+25	|	Ux_Avg	|	m/s	|
+26	|	Uy_Avg	|	m/s	|
+27	|	co2	|	mg/m^3	|
+28	|	h2o_Avg	|	g/m^3	|
+29	|	Ts	|	C	|
+30	|	press	|	kPa	|
+31	|	panel_temp_Avg	|	C	|
+32	|	wnd_dir_compass	|	degrees	|
+33	|	wnd_dir_csat3	|	degrees	|
+34	|	wnd_spd	|	m/s	|
+35	|	rslt_wnd_spd	|	m/s	|
+36	|	batt_volt_Avg	|	V	|
+37	|	std_wnd_dir	|	degrees	|
+38	|	n_Tot	|	samples	|
+39	|	csat_warnings	|	samples	|
+40	|	irga_warnings	|	samples	|
+41	|	del_T_f_Tot	|	samples	|
+42	|	sig_lck_f_Tot	|	samples	|
+43	|	amp_h_f_Tot	|	samples	|
+44	|	amp_l_f_Tot	|	samples	|
+45	|	chopper_f_Tot	|	samples	|
+46	|	detector_f_Tot	|	samples	|
+47	|	pll_f_Tot	|	samples	|
+48	|	sync_f_Tot	|	samples	|
+49	|	agc_Avg	|	unitless	|
+
+
+### PB
+Canal|Variavel|Descrição|Unidade
+-----|--------|---------|-------
+*i*  |TS      |Timestamp| 
+
+
