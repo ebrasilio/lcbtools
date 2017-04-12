@@ -62,7 +62,7 @@ Neste período dados ruins não extraí canal 4, druck para as coletas
 145 e 180.
 
 
-a partir da coleta 2082016 usar esta configuração, lembrando que a cota nobanco está em mm, portanto multiplicador é ***10.0***
+a partir da coleta 2082016 usar esta configuração, lembrando que a cota no banco está em mm, portanto multiplicador é ***10.0***
 de 26/07/2016 (180/2016)
 CR1000
 

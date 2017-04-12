@@ -2,15 +2,17 @@
 title: "metadata_SVG"
 author: "Emilia"
 date: "15 de setembro de 2016"
-output: pdf_document
+output: 
+  pdf_document: 
+    fig_width: 3
 ---
 
 Notas a respeito dos dados experimentais coletados em Santa Virgínia.
 
 ###Sítio
-+ ID
-+ lat/lon
-+ altitude
++ ID = "SVG"
++ lat/lon = ""
++ altitude = ""
 + descrição (topografia, vegetação, uso da terra)
 + citação
 + Outros trabalhos publicados
@@ -21,17 +23,87 @@ Notas a respeito dos dados experimentais coletados em Santa Virgínia.
 + aquisição: 3 minutos 
 
 Processamento:
-*G3V_SVG_Solinst_GoldV2.R*
-são dois aquivos que o script se encarrega de calcular a cota para processar
+*Rscript G3V_SVG_Solinst_GoldV2.R*
+O script verifica a existencia dos dois arquivos (baro e level) e calcula a cota (mm), em médias de 10 minutos.
 
-####2.2-GAR
+tabela - Ordem dos canais do arquivo de saída do processamento inicial dos dados do Solinst:
+
+Canal|Variavel|Descrição|Unidade|Arquivo de entrada
+-----|--------|---------|-------|------------------
+i|date  |data-tempo |YYYY-MM-DD HH:MM:SS | -- |
+1|Baro  |Pressão no ar  |kPa|
+2|T_agua|Temperatura da água|°C|
+3|Level |Pressão na água  |kPa |
+4|T_ar  |Temperatura do Ar|°C|
+5|Cota  |Altura da lâmina d'água| cm|
+
+####2.3-GAR
+
+Sistema novo de Eddycovariânce, precisa processar no EddyPro
 
 
-### 2.3-Ref
+####2.4-GAS
 
-Canal|Variavel|Descrição|Unidade
------|--------|---------|-------
-i| Timestamp |
+Dados da Torre do sistema de advecção
++ processar dados
++ levantar programas utilizados à época do doc Helber
+
+####2.5-GB
+
+Dados do solo, temperatura, umidade e fluxo de calor
++ lista de equipamentos
+
+tabela - Ordem dos canais do arquivo d CR10x
+
+Canal|Variavel|Descrição|Unidade|Arquivo de entrada
+-----|--------|---------|-------|------------------
+
+
+
+####2.6-GBS
+
+Dados da Torre do sistema de advecção
++ processar dados
++ levantar programas utilizados à época do doc Helber
+
+
+####2.7-GCS
+Dados da Torre do sistema de advecção
++ processar dados
++ levantar programas utilizados à época do doc Helber
+
+####2.8-GP
+Dados da Torre do sistema de **perfil**
++ processar dados **urgentemente**
++ levantar programas utilizados à época do doc Helber
+
+
+####2.9-GR
+Dados de eddy covariance HF, converter com card convert em arquivos menores
+de 30 minutos e processá-los com eddypro, formato novo.
+
+No formato antigo ainda usamos programas do Prof. Osvaldo Cabral, apenas par comparação.
+
+####2.10-GS
+Dados da Torre do sistema de adveccção
++ processar dados **urgentemente**
++ levantar programas utilizados à época do doc Helber
+
+
+
+####2.11-Gtheta
+Ver script para terminar no ~/git/lcbtools/R/soilHumidityFunctions.R
+
+
+####2.12-GT
+
+DAdos da estação na torre principal h=60m
+
+####2.13-GT_Ref
+
+Canal|Variavel|Descrição|Unidade|Arquivo de entrada
+-----|--------|---------|-------|------------------
+i| Timestamp |  |  |  |--|--
 1| short_up	| W/m^2
 2| short_dn	| W/m^2
 3| long_up	| W/m^2

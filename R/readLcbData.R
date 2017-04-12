@@ -12,7 +12,8 @@ if(is.null(inp) | is.null(sitio)){
 
 if(sitio == "PDG" | sitio == "PEG" | sitio == "pdg" | sitio == "peg") sitio <- "PDG1"
 if(sitio == "SVG" | sitio == "svg") sitio <- "SVG1"
-    
+if(sitio == "BAN" | sitio == "ban") sitio <- "BAN1"
+
 path <- "/data1/BANCO/SITES/"
 test.data  <- lapply(inp, 
                 function(.file) 
