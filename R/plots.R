@@ -168,31 +168,25 @@ bar_plot <-
     }   
 
 ##year
-mydt = year
-mydt$value = round(mydt$value,0)
-ppy =
-    ggplot(mydt, aes(x=date, y=value, fill=variable)) +
-    geom_bar(stat="identity", position="dodge") +
-    geom_text(aes(label = value),position=position_dodge(width=1),
-              vjust=0, size=8) +
-    scale_fill_manual(values=c("salmon","orange","black")) +
-    ggtitle("")+
-    ylim(c(0,2100))+
-    ylab("mm/year") +
-    theme(legend.position="bottom",
-          legend.title=element_blank(),
-          legend.text=element_text(size = 15),
-          strip.text.x = element_text(size=15, face="bold"),
-          axis.text.x=element_text(size=20, angle=0),
-          axis.text.y=element_text(size=20),
-          axis.title.x=element_blank(),
-          axis.title.y=element_text(size=20))
-
-
-
-
-
-
+# mydt = year
+# mydt$value = round(mydt$value,0)
+# ppy =
+#     ggplot(mydt, aes(x=date, y=value, fill=variable)) +
+#     geom_bar(stat="identity", position="dodge") +
+#     geom_text(aes(label = value),position=position_dodge(width=1),
+#               vjust=0, size=8) +
+#     scale_fill_manual(values=c("salmon","orange","black")) +
+#     ggtitle("")+
+#     ylim(c(0,2100))+
+#     ylab("mm/year") +
+#     theme(legend.position="bottom",
+#           legend.title=element_blank(),
+#           legend.text=element_text(size = 15),
+#           strip.text.x = element_text(size=15, face="bold"),
+#           axis.text.x=element_text(size=20, angle=0),
+#           axis.text.y=element_text(size=20),
+#           axis.title.x=element_blank(),
+#           axis.title.y=element_text(size=20))
 
 eq = TRUE
 #=====================================================
@@ -579,3 +573,41 @@ plot_yr <- function(aux, titulo, laby, ylim, lm=TRUE) {
 # #   print(p32)
 # # 
 # # dev.off()
+
+
+#----------------------------------------------------------------------
+plot_wind_vector <- function(mydata, day_ini=NULL, day_end=NULL, format = "uv",
+                             title = NULL){
+    # format uv = na tabela temos u e v já calculados
+    #        wswd = na tabela temos Vh e direção
+    # TODO incluir opção para fazer as medias por ciclos chamando a função Make....
+    
+    if(!is.null(day_ini)){
+        auxWd = selectByDate(mydata, day_ini, day_end)
+    } else {
+        auxWd = mydata
+    }
+    
+    if(format != "uv"){
+        auxWd$u <- (-1 * auxWd$ws) * sin((auxWd$wd) * pi / 180.0)
+        auxWd$v <- (-1 * auxWd$ws) * cos((auxWd$wd) * pi / 180.0)
+    }
+    dw = auxWd[,names(auxWd) %in% c("date","u", "v")]
+    dw$date = as.POSIXct(paste0("2000-01-01 ",dw$date), format="%Y-%m-%d %H", tz="GMT")
+    
+    dwd_p <-
+        ggplot(data=dw, aes(x=date, y=0)) +
+        theme(plot.margin=unit(c(0,0.8,0.5,0.9),'lines')) +
+        geom_segment(aes(xend=date+u*3600, yend=v),
+                     arrow=arrow(length=unit(0.25,'cm')), size = 1)+ ylim(c(-5,5)) +
+        scale_x_datetime(date_breaks = "2 hour", date_labels = "%H") +
+        ylab("Vento m/s")+
+        theme(axis.title.x = element_text(angle=0, vjust=0, size=14, colour= "black"),
+              axis.title.y = element_blank(),#element_text(size=14, colour= "black"),
+              axis.text.x  = element_text(angle=0, vjust=0, size=14, colour= "black"),
+              axis.text.y  = element_text(angle=0, vjust=0, size=14, colour= "black")) +
+        ggtitle(title)
+    
+    return(dwd_p)
+    
+}
