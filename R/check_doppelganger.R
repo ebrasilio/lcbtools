@@ -55,21 +55,11 @@ doppel <- function(dir_new = NULL, dir_full = '/data1/DATA/LCB/EXT/STORAGE/data/
 }
 
 
-#------------------------------------------------------------------------
-dir_1 = '/data1/DATA/LCB/EXT/STORAGE/data/C/Clean'
-pattern = '^[C]'
-dir2 = '/data1/DATA/LCB/EXT/2017/30017' 
-
-doppel()
 
 
-doppel('/data1/DATA/LCB/EXT/2017/30017')
-doppel('/data1/DATA/LCB/EXT/2017/26017')
-
-
-library(beepr)
-for(i in 1:11){
-  beep(i)
-  invisible(readline(prompt="Press [enter] to continue"))
-}
+# library(beepr)
+# for(i in 1:11){
+#   beep(i)
+#   invisible(readline(prompt="Press [enter] to continue"))
+# }
 
