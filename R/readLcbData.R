@@ -11,8 +11,11 @@ if(is.null(inp) | is.null(sitio)){
 }
 
 if(sitio == "PDG" | sitio == "PEG" | sitio == "pdg" | sitio == "peg") sitio <- "PDG1"
+if(sitio == "vcp" | sitio == "VCP" | sitio == "FCP" | sitio == 'fcp') sitio <- "VCP"
 if(sitio == "SVG" | sitio == "svg") sitio <- "SVG1"
 if(sitio == "BAN" | sitio == "ban") sitio <- "BAN1"
+if(sitio == "usr" | sitio == "USR") sitio <- "USR"
+
 
 path <- "/data1/BANCO/SITES/"
 test.data  <- lapply(inp, 
