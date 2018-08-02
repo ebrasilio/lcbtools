@@ -1,0 +1,28 @@
+---
+title: "PEFI"
+author: "Emilia Brasilio"
+date: "19 de março de 2018"
+output: pdf_document
+---
+
+### Lista de variáveis 
+
+*Tabela 1: Descrição das variáveis do experimento PEFI.*
+
+| Nº | Variavel | Descrição                     | Unidade             |
+|----|:--------:|:-----------------------------:|:-------------------:|
+| 01 | date     | Data-Hora                     | yyyy-mm-dd hh:mm:ss |
+| 02 | Tar_Bot  | Temp ar - Botânico            | °C                  |
+| 03 | UR_Bot   | Umidade Relativa - Botânico   | %                   |
+| 04 | Tar_Zoo  | Temp ar - Zoológico           | °C                  |
+| 05 | UR_Zoo   | Umidade Relativa - Zoológico  | %                   |   
+| 06 | wd       | Direção do Vento - Zoológico  | °                   |
+| 07 | ws       | Velocidade do Vento- Zoológico| m s^-1^            |
+| 08 | Press    | Pressão Atmosférica           | hPa                 |
+| 09 |Chuva_Acm |Precipitação Acumulada em 10 min| mm                 |
+| 10 | Ki       | Rad. Global incidente         | W m^-2^             |
+
+
+
+
+
