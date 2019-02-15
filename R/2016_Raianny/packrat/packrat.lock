@@ -1,0 +1,152 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.4
+RVersion: 3.2.2
+Repos: CRAN=https://cran.rstudio.com/,
+    BioCsoft=http://bioconductor.org/packages/3.2/bioc,
+    BioCann=http://bioconductor.org/packages/3.2/data/annotation,
+    BioCexp=http://bioconductor.org/packages/3.2/data/experiment,
+    BioCextra=http://bioconductor.org/packages/3.2/extra
+
+Package: BH
+Source: CRAN
+Version: 1.60.0-1
+
+Package: DBI
+Source: CRAN
+Version: 0.3.1
+Hash: 096699d1ac1cf530acfc646a0c90ee5d
+
+Package: R6
+Source: CRAN
+Version: 2.1.2
+
+Package: RColorBrewer
+Source: CRAN
+Version: 1.1-2
+
+Package: RJSONIO
+Source: CRAN
+Version: 1.3-0
+
+Package: Rcpp
+Source: CRAN
+Version: 0.12.3
+
+Package: RgoogleMaps
+Source: CRAN
+Version: 1.2.0.7
+Requires: RJSONIO, png
+
+Package: assertthat
+Source: CRAN
+Version: 0.1
+
+Package: colorspace
+Source: CRAN
+Version: 1.2-6
+
+Package: dichromat
+Source: CRAN
+Version: 2.0-0
+
+Package: digest
+Source: CRAN
+Version: 0.6.9
+
+Package: dplyr
+Source: CRAN
+Version: 0.4.3
+Requires: BH, DBI, R6, Rcpp, assertthat, lazyeval, magrittr
+
+Package: ggplot2
+Source: CRAN
+Version: 2.0.0
+Requires: digest, gtable, plyr, scales, reshape2
+
+Package: gtable
+Source: CRAN
+Version: 0.1.2
+
+Package: hexbin
+Source: CRAN
+Version: 1.27.1
+
+Package: labeling
+Source: CRAN
+Version: 0.3
+
+Package: latticeExtra
+Source: CRAN
+Version: 0.6-26
+Requires: RColorBrewer
+
+Package: lazyeval
+Source: CRAN
+Version: 0.1.10
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+
+Package: mapdata
+Source: CRAN
+Version: 2.2-6
+Requires: maps
+
+Package: mapproj
+Source: CRAN
+Version: 1.2-4
+Requires: maps
+
+Package: maps
+Source: CRAN
+Version: 3.0.2
+
+Package: munsell
+Source: CRAN
+Version: 0.4.2
+Requires: colorspace
+
+Package: openair
+Source: CRAN
+Version: 1.6.7
+Requires: RColorBrewer, Rcpp, hexbin, lazyeval, maps, latticeExtra,
+    plyr, dplyr, mapdata, mapproj, RgoogleMaps, reshape2
+
+Package: packrat
+Source: CRAN
+Version: 0.4.4
+Hash: aed7d17407538df551a57caf6289c8bf
+
+Package: plyr
+Source: CRAN
+Version: 1.8.3
+Requires: Rcpp
+
+Package: png
+Source: CRAN
+Version: 0.1-7
+
+Package: reshape
+Source: CRAN
+Version: 0.8.5
+Requires: plyr
+
+Package: reshape2
+Source: CRAN
+Version: 1.4.1
+Requires: Rcpp, plyr, stringr
+
+Package: scales
+Source: CRAN
+Version: 0.3.0
+Requires: RColorBrewer, Rcpp, dichromat, labeling, plyr, munsell
+
+Package: stringi
+Source: CRAN
+Version: 1.0-1
+
+Package: stringr
+Source: CRAN
+Version: 1.0.0
+Requires: magrittr, stringi
