@@ -25,7 +25,7 @@ baro <- paste0(inpdir, '/P3VB', coleta, '.csv')
 level <- gsub('P3VB', 'P3VL', baro)
 
 if(file.exists(baro) & file.exists(level)){
-  cat('\n Processing: ', coleta)
+  cat('\n Processing: ', coleta,'\n')
   if(stringr::str_detect(readLines(baro, n = 12)[12], ";")){
     br <- read.csv(baro, skip = 11, sep=";", dec=",", header = FALSE)
   }else{
@@ -43,7 +43,7 @@ if(file.exists(baro) & file.exists(level)){
   br <- data.frame(date, br[,4:5])
   names(br)[2:3] <- c("Baro", "T_agua")
   
-  if(stringr::str_detect(readLines(baro, n = 12)[12], ";")){
+  if(stringr::str_detect(readLines(level, n = 13)[13], ";")){
     lv <- read.csv(level, skip = 12, sep=";", dec=",", header = FALSE)
   }else{
     lv <- read.csv(level, skip = 12, header = FALSE)
@@ -69,9 +69,9 @@ st <- as.POSIXct(format(round(br$date[1], units = "hours"),
                         format="%Y-%m-%d %H:%M:%S"), tz = "GMT")
 
 # média 10 minutos para sincronizar
-br10 <- timeAverage(br1, avg.time="10 min")
+br10 <- timeAverage(br, avg.time="10 min")
 br10$date <- br10$date + 10 * 60 
-lv10 <- timeAverage(lv1, avg.time="10 min")
+lv10 <- timeAverage(lv, avg.time="10 min")
 lv10$date <- lv10$date + 10 * 60 
 vert <- merge(br10, lv10, by = "date", all = T)
 vert$Cota_cm <- (vert$Level - vert$Baro)*10^2 / 9.8
