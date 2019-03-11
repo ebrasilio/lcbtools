@@ -7,17 +7,16 @@ rm(list = ls())
 library(openair)
 library(stringi)
 
-
 args <- commandArgs(TRUE)
 if(length(args) == 0){
   stop("\n\t\t*** Falta informar data da coleta ***\n\n")
 } else if(args[1] == "-h"){
   cat("\n *** Informar ano e dia do ano para processar *** \n Exemplo:\n \t
         2016 025 \n\n")
+  stop()
 }else{
   outdir <- paste0('/data1/DATA/LCB/PDG/', args[1],'/P3V')
   inpdir <- paste0(outdir, "/genesis")
-  cat("\n",inpdir,"\n")
 }
 
 # arquivos para processar
@@ -27,7 +26,11 @@ level <- gsub('P3VB', 'P3VL', baro)
 
 if(file.exists(baro) & file.exists(level)){
   cat('\n Processing: ', coleta)
-  br <- read.csv(baro, skip = 11, header = FALSE)
+  if(stringr::str_detect(readLines(baro, n = 12)[12], ";")){
+    br <- read.csv(baro, skip = 11, sep=";", dec=",", header = FALSE)
+  }else{
+    br <- read.csv(baro, skip = 11, header = FALSE)  
+  }
   
   # acertando data
   if(sum(nchar(unlist(stri_split_fixed(br$V1, '/')))[1:3] == c(2,2,4)) == 3){
@@ -40,7 +43,11 @@ if(file.exists(baro) & file.exists(level)){
   br <- data.frame(date, br[,4:5])
   names(br)[2:3] <- c("Baro", "T_agua")
   
-  lv <- read.csv(level, skip = 12, header = FALSE)
+  if(stringr::str_detect(readLines(baro, n = 12)[12], ";")){
+    lv <- read.csv(level, skip = 12, sep=";", dec=",", header = FALSE)
+  }else{
+    lv <- read.csv(level, skip = 12, header = FALSE)
+  }
   
   # acertando data
   if(sum(nchar(unlist(stri_split_fixed(lv$V1, '/')))[1:3] == c(2,2,4)) == 3){
