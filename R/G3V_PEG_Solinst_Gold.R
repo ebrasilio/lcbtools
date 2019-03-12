@@ -64,6 +64,9 @@ if(file.exists(baro) & file.exists(level)){
   stop('\n**** Não existe arquivo level****\n') 
 }
 
+if(sum(br$Baro > 700)) br$Baro <- br$Baro/10
+if(sum(lv$Level > 700)) lv$Level <- lv$Level /10
+
 #---------------------------------------------------------------------------------------        
 st <- as.POSIXct(format(round(br$date[1], units = "hours"), 
                         format="%Y-%m-%d %H:%M:%S"), tz = "GMT")
@@ -80,7 +83,4 @@ vert$date <- as.character(vert$date)
 # saida 
 OutFile <- paste0(outdir, "/pdg_p3v_", args[1], "_", args[2], ".ascii")
 write.csv(vert, OutFile, row.names = FALSE, na = "-9999")
-
-
-
 
