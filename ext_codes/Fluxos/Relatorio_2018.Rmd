@@ -1,0 +1,49 @@
+---
+title: "realtorio final 2018"
+author: "Emilia Brasilio"
+date: "21 de novembro de 2018"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Sistema de medida de fluxos - média 10 min
+|coletas|periodo     | falhas   |id logger| Net|
+|-------|------------|----------|---------|-----
+|31616  | inicio     |          |60972
+|10817  | fim - sonico com ptoblema
+|13717  |16Mai19:00 - 19Mai02:30|52356    |
+|15117  |19Mai15:30 - 01Jun05:00|52356    |
+|20117  |17Jun20:00 - 21Jul10:00|52356    |
+|24117  |14Ago16:30 - 31Ago06:00|52356    |
+|26017  |31Ago11:30 - 19Set15:00|52356    |
+|30017  |01Out03:50 - 10Nov16:20|52356    |
+|34517  |                       |52356  TEM SIM PROCESSAR  |
+|03118  |24Dez17:40 - 01Fev10:00|52356    |
+|05818  |01Fev10:20 - 28Fev17:10|52356    |
+|08618  |28Fev17:50 - 28Mar13:00|52356    |
+|14918  |28Mar13:20 - 03Mai17:10|52356    |
+|16318  | Não houve coleta      |52356  TEM SIM PROCESSAR   |
+|20018  |10Jun09:30 - 19Jul14:00|52356    |
+|23018  |19Jul14:20 - 16Ago17:20|52356    |
+|26818  |17Ago21:40 - 25Set17:00|52356    | 16 à 20/08 sem dados, arquivo ok
+
+
+
+
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

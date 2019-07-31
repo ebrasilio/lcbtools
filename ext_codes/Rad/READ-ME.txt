@@ -1,0 +1,12 @@
+Emilia May 2019
+
+Para atualizar Net, apenas rode o script da seguinte forma:
+
+Rscript net_organize.R
+
+Ele vai verificar se tem dado novo e atualiza, se encontrar erros para a execução e dá várias mensagens de erro.
+
+A partir da coleta 19115, foram incluidos dados de toda plataforma de radiação, ainda não incluídos.
+
+Também precisa juntar num único arquivo de saída os dados de Flx de Calor de Solo.
+

@@ -1,0 +1,45 @@
+---
+title: "Processamento Extrema - DeltaT - Umidade do solo"
+author: "Emilia"
+date: "31 de maio de 2017"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. Leitura do arquivo anterior (caso exista)
+    A primeira ação é procurar dados anteriores na paste merge, onde devem estar os arquivos da última atualizacao dos dados de campo. Se não tem, haverá processamento de todos os arquivos, como se fosse a primeira vez. 
+    
+2. verificar se existem dados novos a processar
+    todo dado deve ser lido, limpo.... e backupiado no temp, assim a cada nova coleta é feita uma "comparação" e aṕeans arquivoas novos é reprocessada.
+    
+    ler na pasta ???? o log com a lista de arquivos já processados,
+    comparar essa lista coma lista de 
+    Nessa etapa do processamento, é preciso verificar se há dados novo, se já houve processado, haverá o arquivo log com a lista do que já foi processado. Para comparar com a base de dados, havendo dados novos, eles serão copiados para a pasta em questão e o log será atualizado/criado.
+    Também verificamos se há mais de uma cópia do mesmo dado, se sim, o programa aborta e envia mensagem de erro.
+    
+3. ler, corrigir, converter e completar tabela lida
+4. calcular médias
+5. escrever saidas
+6. sincronizar na storage
+
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
