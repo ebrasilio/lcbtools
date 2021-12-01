@@ -1,51 +1,141 @@
-#--------------------------------------------------------------------
+#
 # Progama para organizar dados do PEFI
-#--------------------------------------------------------------------
+#
 rm(list=ls())
-
 library(openair)
+library(stringr)
 
+setwd()
+#---- Funções ----
+searchNewData <- function(path, pattern=NULL){
+  if(is.null(pattern)){
+    sfile <- list.files(path, full.names=T, recursive=T )  
+  } else {
+    sfile <- list.files(path, pattern, full.names=T, recursive=T )  
+  }
 
-#--------------------------------------------------------------------------------------
-# dados botânico
-path <- '/data1/DATA/LCB/PEFI'
-a <- list.files(path, pattern='TOA5_50319', full.names=T,recursive=T)
-tt <- lapply(a, function(.file)readr::read_csv(.file, skip=4, na="NAN", col_names=F))
+  # arquivo Log
+  if(file.exists(paste0(pattern,'_log.csv'))){
+    lg <- readLines(paste0(pattern,'_log.csv'))
+    return(sfile[!(sfile %in% lg)])
+  } else {
+    writeLines('# log',paste0(pattern,'_log.csv'))
+    print('\n *** Primeiro rocessamento do sítio ***\n Log criado')
+    return(sfile)
+  }
+}
 
-# checar se o numero de colunas é igual
-if( length(unique(unlist(lapply(tt, ncol)))) == 1){
-  bot <- do.call(rbind,tt)
-  names(bot) <- c("date","PTemp","Pira","batt","Dn","Dir","Dx","Sn","Vh","Sx","Tar",
-                  "Tpainel","Ur","Press","Chuva_Acm","Vs","batt_Min")
-  ref <- data.frame(date=seq.POSIXt(min(bot$date), max(bot$date),by = '1 min'))
-  bot <- merge(ref, bot, by="date", all.x=T)
-} else{
-  cat("Arquivo com numero de colunas diferente")
+check_ref <- function(min, max, by='30 min'){
+  ref <- data.frame(date=seq.POSIXt(min, max, by))
+  return(ref)
+}
+
+#---- Botânico ----
+# dados novos
+a <- searchNewData(path='data', pattern='TOA5_Bot')
+if(length(a) == 0){
+  cat('*** Nenhum arquivo novo a processar ***')
+} else {
+  # processando dados Botânico
+  tt <- lapply(a, function(.file)readr::read_csv(.file, skip=4, na="NAN", 
+                                                 col_names=F))
+  cat('*** Existem ', length(a), ' arquivos novos a processar ***')
+  # labels separado por periodos de datalogger
+  # CR1000
+  for(i in which(unlist(lapply(tt, ncol)) == 17) ){
+    names(tt[[i]]) <- c("date","PTemp","Pira","batt","Dn","Dir","Dx","Sn","Vh","Sx","Tar",
+                        "Tpainel","Ur","Press","Chuva_Acm","Vs","batt_Min")
+    tt[[i]]$date <- as.POSIXct(tt[[i]]$date, format="%Y-%m-%d %H:%M%S", tz='GMT')
+  }
+  
+  #CR300
+  for(i in which(unlist(lapply(tt, ncol)) == 14) ){
+    names(tt[[i]]) <- c("date", "RECORD", "batt", "Vh", "Dir", "Dir_SD", "Tar", "Ur",
+                        "Press", "Chuva_Acm", "Vs", "TCG1", "Pyra_ref", "Pira")
+    tt[[i]]$date <- as.POSIXct(tt[[i]]$date, format="%Y-%m-%d %H:%M%S", tz='GMT')
+  }
+  
+  bot <- merge(tt[[1]], tt[[2]], all=T)
+  for(i in 3:length(tt)){
+    bot <- merge(bot, tt[[i]], all=T)
+  }
+  
+  # atualizando o LOG
+  write.table(a, paste0('TOA5_Bot','_log.csv'), append=T, col.names=F, row.names=F)
+}
+
+# juntar dados novos aos dados antigos
+if(file.exists('out/botanico_all.csv')){
+  old <- read.csv('out/botanico_all.csv')
+  #merge
+  #ref
+} else {
+  ref <- check_ref(min(bot$date), max(bot$date), by='1 min')
+  bot1 <- merge(ref, unique(bot), all.x=T)
+  bot1$diff <- c(NA, diff(bot1$date)
+  
 }
 
 
-#-------------------------------------------------------------------------------------------
-# dados zoologico
-labels <- c("date","PTemp","batt","Pira_ref","Pira","Dn","Dir","Dx","Sn","Vh","Sx",
-            "Tar","Tpainel","Ur","Press","Chuva_Acm","Vs","batt_Min")
-tt <- list.files(path, pattern='TOA5_60968', full.names=T,recursive=T)[1:2]
-tt <- lapply(tt, function(.file)readr::read_csv(.file, skip=4, na="NAN", col_names=labels))
 
-if( length(unique(unlist(lapply(tt, ncol)))) == 1){
-  b1 <- do.call(rbind,b1)
-  b1 <- unique(b1)
+
+
+
+
+
+#---- Zoológico ----
+# dados novos
+a <- searchNewData(path='data', pattern='TOA5_Zoo')
+if(length(a) == 0){
+  cat('*** Nenhum arquivo novo a processar ***')
+} else {
+  # processando dados Botânico
+  tt <- lapply(a, function(.file)readr::read_csv(.file, skip=4, na="NAN", 
+                                                 col_names=F))
+  cat('*** Existem ', length(a), ' arquivos novos a processar ***')
+  
+  # labels separado por periodos de datalogger
+  # CR1000
+  for(i in which(unlist(lapply(tt, ncol)) == 16) ){
+    names(tt[[i]]) <- c("date","PTemp","batt","Dn","Dir","Dx","Sn","Vh","Sx","Tar",
+                        "Tpainel","Ur","Press","Chuva_Acm","Vs","batt_Min")
+    tt[[i]]$date <- as.POSIXct(tt[[i]]$date, format="%Y-%m-%d %H:%M%S", tz='GMT')
+  }
+  
+  for(i in which(unlist(lapply(tt, ncol)) == 18) ){
+    names(tt[[i]]) <- c("date","PTemp","batt","Pira_ref","Pira","Dn","Dir","Dx",
+                        "Sn","Vh","Sx","Tar","Tpainel","Ur","Press","Chuva_Acm",
+                        "Vs","bat_Min")
+    tt[[i]]$date <- as.POSIXct(tt[[i]]$date, format="%Y-%m-%d %H:%M%S", tz='GMT')
+  }
+  
+  #CR300
+  for(i in which(unlist(lapply(tt, ncol)) == 14) ){
+    names(tt[[i]]) <- c("date","RECORD","batt","Vh","Dir","Dir_SD","Tar",
+                        "Ur","Press","Chuva_Acm","Vs","TCG2","Pira_ref","Pira")
+    tt[[i]]$date <- as.POSIXct(tt[[i]]$date, format="%Y-%m-%d %H:%M%S", tz='GMT')
+  }
+  
+  for(i in which(unlist(lapply(tt, ncol)) == 13) ){
+    names(tt[[i]]) <- c("date","batt","Vh","Dir","Dir_SD","Tar",
+                        "Ur","Press","Chuva_Acm","Vs","TCG2","Pira_ref","Pira")
+    tt[[i]]$date <- as.POSIXct(tt[[i]]$date, format="%Y-%m-%d %H:%M%S", tz='GMT')
+  }
+  
+  zoo <- merge(tt[[1]], tt[[2]], all=T)
+  for(i in 3:length(tt)){
+    zoo <- merge(zoo, tt[[i]], all=T)
+  }
+  
+  # atualizando o LOG
+  write.table(a, paste0('TOA5_Zoo','_log.csv'), append=T, col.names=F, row.names=F)
+}
+
+
+
   ref <- data.frame(date=seq.POSIXt(min(b1$date), max(b1$date),by = '1 min'))
-  b1 <- merge(ref, b1, by="date", all.x=T)
 
-b2 <- list.files(path, pattern='TOA5_60968', full.names=T,recursive=T)[-c(1:2)]
-b2 <- lapply(b2, function(.file)readr::read_csv(.file, skip=4, na="NAN", 
-                                                col_names=labels))
-b2 <- do.call(rbind,b2)
-b2 <- unique(b2)
-ref <- data.frame(date=seq.POSIXt(min(b2$date), max(b2$date),by = '1 min'))
-b2 <- merge(ref, b2, by="date", all.x=T)
-zoo <- merge(b1, b2, all=T)
-
+#---- Figuras ----
 # antes de tudo plotar baterias para o Duda
 bat <- merge(zoo[,c(1,3)], bot[,c(1,4)], by='date')
 names(bat)[-1] <- c("Zoo","Bot")

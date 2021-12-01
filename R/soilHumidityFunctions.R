@@ -51,7 +51,7 @@ deltaTConvert =
                 })
             }
         }
-        tt = data.frame(date=mydt$date, apply(aux2,2,function(x){return(round(x,4))}))
+        tt = data.frame(date=mydt$date, apply(aux2,2,function(x){round(x,4)}))
         
     return(tt)    
     }
