@@ -3,13 +3,16 @@
 ##  TODO: Organizar função para buscar variavel e periodo de tempo separadamente
 #
 
-path = "~/lcb_2021/EXT/outExt/Clima"
-out <- "~/lcb_2021/EXT/outExt/Clima_por_variavel"
+path = "/data1/DATA/LCB/EXT/outExt/Clima"
+out <- "/data1/DATA/LCB/EXT/outExt/Clima_por_variavel"
 
 #inp.files = list.files(path, full.names = T, pattern="clear_merge.txt")
 inp.files = list.files(path, full.names = T, pattern="clear_merge_H.txt")
 
-sta <- substr(inp.files, 40, 42)
+#---- separar o nome das estações - ainda não está a prova de erros
+sta <- unique(substr(str_split_fixed(inp.files, '/',8)[,8],1,3))
+
+#sta <- substr(inp.files, 40, 42)
 
 test.data  <- lapply(inp.files, 
                      function(.file) 

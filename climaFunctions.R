@@ -142,7 +142,7 @@ printOuts <- function(mydt, out, station){
                     apply(day[,-1], 2, function(x)round(x,4)))
   
   #imprimir
-  cat('\n Escrevendo arquivos finais ', station, '  \n')
+  cat('\nEscrevendo arquivos finais ', station, '  \n')
   write.csv(mydt, paste0(out,'/', sta[i], 'clear_merge.txt'), row.names = FALSE, na='-9999')
   write.csv(hour, paste0(out,'/', sta[i], 'clear_merge_H.txt' ), row.names = FALSE, na='-9999')
   write.csv(day, paste0(out,'/', sta[i], 'clear_merge_D.txt' ), row.names = FALSE, na='-9999')
