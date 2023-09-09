@@ -1,4 +1,5 @@
-# -----------------------------------------------------------------------------
+#
+#
 # Ordenar dados de Net
 # coletas 024/17 até 260/2017 estava no arquivo de fluxos médios 30 min,
 #     TOA5_XF_ddddyy.data
@@ -9,22 +10,49 @@
 
 #  precisa dar uma saída mais analítica com estatísticas  e algumas 
 # análises mais coerentes.
-#------------------------------------------------------------------------------
+# 2023 - retomada dos trabalhos, atualizar dados 
+# em 2022 a torre 1 foi removida e a plataforma de radiação ficou concentrada
+# na torre2
+#
+
 rm(list=ls())
 
 library(openair)
 library(stringi)
 
-#--------------------------------------------
+#----2023----
+# torre1 
+tower1 <- '/home/emilia/lcb_2021/EXT/outExt/Radiação_torre1/'
+rad1 <- read.csv(paste0(tower1,'EXT_Torre1_Radiation_10min.csv'),
+                 stringsAsFactors = F, na.strings = '-9999')
+rad1$date <- as.POSIXct(rad1$date, tz='GMT')
+rad30 <- timeAverage(rad1, avg.time = '30 min', 
+                     start.date = paste0(substr(rad1$date[1],1,14),'00'))
+
+shf1 <- read.csv(paste0(tower1,'extrema_shf_Torre1_15min.csv'),
+                 stringsAsFactors = F, na.strings = '-9999')
+shf1$date <- as.POSIXct(shf1$date, tz='GMT')
+shf1$SHF3_Avg. <- as.numeric(shf1$SHF3_Avg.)
+shf30 <- timeAverage(shf1, avg.time = '30 min', 
+                    start.date = paste0(substr(shf1$date[1],1,14),'00'))
+tw1 <- merge(rad30, shf30, all=T, by="date")
+timeVariation(tw1, names(tw1)[c(2,3,5,11)])
+
+
+tower2 <- '/home/emilia/lcb_2021/EXT/outExt/Radiação_torre2/'
+
+#----Final----
+#
 # Verificar se há dados novos a processar
-raw_data <- "/data1/DATA/LCB/EXT/origin"
+# raw_data <- "/data1/DATA/LCB/EXT/origin"
+# 
+# flux1 <- list.files(raw_data, pattern = "TOA5_XF", recursive = T, full.names = T)
+# flux2 <- list.files(raw_data, pattern = "TOA5_EF", recursive = T, full.names = T)
+# log <- read.table('netRad.log', stringsAsFactors = FALSE, header = F)
+# 
+# flux <- c(flux1, flux2)
+#
 
-flux1 <- list.files(raw_data, pattern = "TOA5_XF", recursive = T, full.names = T)
-flux2 <- list.files(raw_data, pattern = "TOA5_EF", recursive = T, full.names = T)
-log <- read.table('netRad.log', stringsAsFactors = FALSE, header = F)
-
-flux <- c(flux1, flux2)
-#---------------------------------------------
 # lista de arquivos novos a sincronizar
 
 flux <- flux[!(data.frame(V1=flux)$V1 %in% log$V1)]
@@ -101,14 +129,13 @@ if(length(flux) > 0){
 
 
 
-#===============================================================================
-
+#
 # new <- timeAverage(new, avg.time = '30 min', 
 #                    start.date = paste0(substr(new$date[1],1,14),'00:00')) 
 # ref <- data.frame(date=seq.POSIXt(new$date[1], new$date[nrow(new)], by='30 min'))
 # new <- merge(ref,new, all=T)
 # 
-# #------------------------------------------------
+# 
 # # Ler arquivo original
 # old_data <- "/data1/DATA/LCB/EXT/STORAGE/data/I"
 # old <- read.csv(paste0(old_data,'/Net_Extrema_30m.csv'))
@@ -130,11 +157,10 @@ if(length(flux) > 0){
 
 
 
-#---------------------------------------------------------
+#
 # Código utilizado para integrar os dados até 2017
 {
-    # #---------------------------------------------
-    # # arquivos 1 e 2 com 87 colunas
+    #  # arquivos 1 e 2 com 87 colunas
     # tt1 <- list()
     # for(i in 1:2){
     #     tt1[[i]] <- tt[[i]]
@@ -144,8 +170,7 @@ if(length(flux) > 0){
     # names(tt1)[1] = "date"
     # tt1$date = as.POSIXct(tt1$date, format="%Y-%m-%d %H:%M:%S", tz = "GMT")
     # 
-    # #-------------------------------
-    # # arquivos 4 a 6 com 86 colunas
+     # arquivos 4 a 6 com 86 colunas
     # tt2 <- list()
     # for(i in 3:length(flux)){
     #     tt2[[i]] <- tt[[i]]
@@ -155,25 +180,21 @@ if(length(flux) > 0){
     # names(tt2)[1] = "date"
     # tt2$date = as.POSIXct(tt2$date, format="%Y-%m-%d %H:%M:%S", tz = "GMT")
     # 
-    # #-------------------------------
-    # # Unir todos os arquivos de 2017
+    # Unir todos os arquivos de 2017
     # temp = merge(tt1,tt2, all=T)
     # 
-    # #----------------------------------------
-    # # Corrigir dados com multiplicador errado 
+     # Corrigir dados com multiplicador errado 
     # # entre nov/2016 e abril/2018
     # ref <- data.frame(date = 
     #             seq.POSIXt(temp$date[1], as.POSIXct('2017-03-29 13:30:00', tz="GMT"), by='30 min'))
     # pos <- which(temp$date %in% ref$date)
     # temp$Net_Avg[pos] = (temp$Net_Avg[pos] -77.5194) * 77.5194
     # 
-    # #-----------------------------------------------
-    # # Net_30min - parte 1
+     # Net_30min - parte 1
     # net_30min <- temp[,c(1,85)]
     # 
     # 
-    # #------------------------------------------------
-    # #ler dados após mudança
+    ## #ler dados após mudança
     # flux <- list.files("../../..", pattern = "TOA5_XF", recursive = T, full.names = T)
     # flux <- flux[substr(flux, nchar(flux)-5, nchar(flux)-4) == '10']
     # 
@@ -187,4 +208,3 @@ if(length(flux) > 0){
     # tt1_30m <- timeAverage(tt1, avg.time = '30 min')
 }
 #
-#---------------------------------------------------------
